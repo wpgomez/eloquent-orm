@@ -11,6 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use EloquentORM\User;
+
+Route::get('/create', function () {
+    $user = User::create([
+        'name' => 'Willy Gomez',
+        'email' => 'wp_gomez@dlirio.com.pe',
+        'password' => bcrypt('123456'),
+        'gender' => 'm',
+        'biography' => 'Profesor de programación'
+    ]);
+
+    return 'Usuario Creado';
+});
+
+Route::get('/update-user', function(){
+    $user = User::find(1);
+
+    $user->gender = 'm';
+    $user->biography = 'Profesor de programación';
+    $user->save();
+
+    return 'Usuario Modificado';
 });
